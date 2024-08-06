@@ -15,9 +15,9 @@ phases:
   build:
     commands:
       - snyk test --skip-unresolved=true  --org=$SNYK_ORG --severity-threshold=high --dev --report 
-      - snyk test --skip-unresolved=true  --org=$SNYK_ORG --severity-threshold=high --dev --report 
       - snyk iac test --severity-threshold=high --org=$SNYK_ORG  --report 
       - snyk code test --severity-threshold=high --org=$SNYK_ORG --report 
+      - docker build -t webgoat/webgoat .
       - snyk container test webgoat/webgoat --json-file-output=reports/results-container.json | snyk-to-html -o reports/results-container.html
 
 
