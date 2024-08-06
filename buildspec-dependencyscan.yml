@@ -1,0 +1,26 @@
+version: 0.2
+env:
+  secrets-manager:
+    SNYK_TOKEN: scb/dev/snyk:token
+    SNYK_ORG: scb/dev/snyk:Organization
+phases:
+  install:
+    runtime-versions:
+      nodejs: latest
+    commands:
+      - npm install -g snyk
+      - npm install snyk-to-html -g
+      - snyk config set api=$SNYK_TOKEN
+
+  build:
+    commands:
+      - snyk test --skip-unresolved=true  --org=$SNYK_ORG --severity-threshold=high --dev --report 
+      - snyk test --skip-unresolved=true  --org=$SNYK_ORG --severity-threshold=high --dev --report 
+      - snyk iac test --severity-threshold=high --org=$SNYK_ORG  --report 
+      - snyk code test --severity-threshold=high --org=$SNYK_ORG --report 
+      - snyk container test webgoat/webgoat --json-file-output=reports/results-container.json | snyk-to-html -o reports/results-container.html
+
+
+artifacts:
+  files:
+    - '**/*'

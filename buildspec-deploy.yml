@@ -1,0 +1,12 @@
+version: 0.2
+
+env:
+  variables:
+    CODE_SRC_DIR: "."
+
+phases:
+  build:
+    commands:
+      # DB backup using RDS snapshot backup
+      # DB migration steps to be added here
+      - echo "deployment placeholder"

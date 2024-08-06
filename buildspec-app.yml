@@ -1,0 +1,10 @@
+version: 0.2
+
+env:
+  variables:
+    CODE_SRC_DIR: "."
+
+phases:
+  build:
+    commands:
+      - echo "Build placeholder only"
